@@ -1,11 +1,11 @@
 package com.skyTech.springapirest.Models.Entities;
 
-import com.sun.istack.NotNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -27,22 +27,26 @@ public class Cliente {
     @Size(min = 4, max = 12, message = "debe contener entre 4 y 12 letras")
     private String apellido;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     @NotEmpty(message = "no puede estar vacio")
     @Email(message = "debe contener un formato email valido")
     private String email;
 
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "no puede estar vacio")
     private Date createAt;
+
+    @Column(name = "foto")
+    private String foto;
 
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-    @PrePersist
-    public void prePersist(){
-        createAt = new Date();
-    }
+//    @PrePersist
+//    public void prePersist(){
+//        createAt = new Date();
+//    }
 
     public Long getId() {
         return id;
@@ -82,5 +86,13 @@ public class Cliente {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }
